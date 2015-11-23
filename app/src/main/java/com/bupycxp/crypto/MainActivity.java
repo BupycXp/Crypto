@@ -16,12 +16,14 @@ public class MainActivity extends AppCompatActivity {
     EditText edittext_data, edittext_step, edittext_result;
     Toast toast;
     String temp, result;
-    char[] latc = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
+
+    /* char[] latc = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
             'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж'
             , 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш'
             , 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я', '.', ',', '!', '@', '#', ';', ':', '%', '*', '('
-            , ')', '?', '-', '_', '/', '=', '+', '"', '<', '>', 'а'};
-    String lat = "abcdefghijklmnopqrstuvwxyzабвгдеёжзийклмнопрстуфхцчшщъыьэюя.,!@#;:%*()?-_ ";
+            , ')', '?','_',' '};
+    String lat = "abcdefghijklmnopqrstuvwxyzабвгдеёжзийклмнопрстуфхцчшщъыьэюя.,!@#;:%*()?_ ";     */
+
     Integer posChar, step;
     Integer i;
 
@@ -45,13 +47,35 @@ public class MainActivity extends AppCompatActivity {
                         step = parseInt(edittext_step.getText().toString());
                         temp = edittext_data.getText().toString();
                         temp = temp.toLowerCase();
+                        //result = result + String.copyValueOf(latc, posChar, 1);
+                        for (i = 0; i <= temp.length() - 1; i++) {
+                            posChar = (int) temp.charAt(i);
+                            result = "" ;
+                        }
+                        edittext_result.setText(result);
+                        result = "";
+                        toast = Toast.makeText(MainActivity.this, temp, toast.LENGTH_SHORT);
+                        toast.show();
+                        break;
+                }
+            }
+        };
+
+        /*  View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.button:
+                        step = parseInt(edittext_step.getText().toString());
+                        temp = edittext_data.getText().toString();
+                        temp = temp.toLowerCase();
                         for (i = 0; i <= temp.length() - 1; i++) {
 
                             if (lat.indexOf(temp.charAt(i)) - step < 0) {
-                                posChar = 27 + lat.indexOf(temp.charAt(i)) - step;
+                                posChar = 73 + lat.indexOf(temp.charAt(i)) - step;
                             } else {
-                                if (lat.indexOf(temp.charAt(i)) == 26) {
-                                    posChar = 26;
+                                if (lat.indexOf(temp.charAt(i)) == 72) {
+                                    posChar = 72;
                                 } else {
                                     posChar = lat.indexOf(temp.charAt(i)) - step;
                                 }
@@ -65,7 +89,8 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
             }
-        };
+        };                  */
+
         button.setOnClickListener(onClickListener);
     }
 
