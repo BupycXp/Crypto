@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     String lat = "abcdefghijklmnopqrstuvwxyzабвгдеёжзийклмнопрстуфхцчшщъыьэюя.,!@#;:%*()?_ ";     */
 
     Integer posChar, step;
+    Byte bytechar, bch;
     Integer i;
 
     @Override
@@ -49,8 +50,9 @@ public class MainActivity extends AppCompatActivity {
                         temp = temp.toLowerCase();
                         //result = result + String.copyValueOf(latc, posChar, 1);
                         for (i = 0; i <= temp.length() - 1; i++) {
+                            bch = (byte) temp.charAt(i);
                             posChar = (int) temp.charAt(i);
-                            result = "" ;
+                            result = String.valueOf(posChar);
                         }
                         edittext_result.setText(result);
                         result = "";
