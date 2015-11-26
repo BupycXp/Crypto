@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import static java.lang.Integer.getInteger;
 import static java.lang.Integer.parseInt;
 
 public class MainActivity extends AppCompatActivity {
@@ -16,16 +15,14 @@ public class MainActivity extends AppCompatActivity {
     EditText edittext_data, edittext_step, edittext_result;
     Toast toast;
     String temp, result;
-
-    /* char[] latc = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
-            'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж'
-            , 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш'
-            , 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я', '.', ',', '!', '@', '#', ';', ':', '%', '*', '('
-            , ')', '?','_',' '};
-    String lat = "abcdefghijklmnopqrstuvwxyzабвгдеёжзийклмнопрстуфхцчшщъыьэюя.,!@#;:%*()?_ ";     */
+    char[] latc = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
+            'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+    char[] rusch = {'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о',
+            'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я'};
+    String lat = "abcdefghijklmnopqrstuvwxyz";
+    String rus = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
 
     Integer posChar, step;
-    Byte bytechar, bch;
     Integer i;
 
     @Override
@@ -39,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         edittext_step = (EditText) findViewById(R.id.editText_step);
         edittext_result = (EditText) findViewById(R.id.editText_result);
 
-
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,12 +44,28 @@ public class MainActivity extends AppCompatActivity {
                         step = parseInt(edittext_step.getText().toString());
                         temp = edittext_data.getText().toString();
                         temp = temp.toLowerCase();
-                        //result = result + String.copyValueOf(latc, posChar, 1);
+
                         for (i = 0; i <= temp.length() - 1; i++) {
-                            bch = (byte) temp.charAt(i);
-                            posChar = (int) temp.charAt(i);
-                            result = String.valueOf(posChar);
-                        }
+                            if (((temp.charAt(i)) >= 65 && (temp.charAt(i)) <= 90) || ((temp.charAt(i)) >= 97 && (temp.charAt(i)) <= 122)) {
+                                if (lat.indexOf(temp.charAt(i)) - step < 0) {
+                                    posChar = 26 + lat.indexOf(temp.charAt(i)) - step;
+                                } else {
+                                    posChar = lat.indexOf(temp.charAt(i)) - step;
+                                }
+                                result = result + String.copyValueOf(latc, posChar, 1);
+
+                            } else if (((temp.charAt(i)) >= 1040 && (temp.charAt(i)) <= 1071) || ((temp.charAt(i)) >= 1072 && (temp.charAt(i)) <= 1103)) {
+                                    if (rus.indexOf(temp.charAt(i)) - step < 0) {
+                                        posChar = 33 + rus.indexOf(temp.charAt(i)) - step;
+                                    } else {
+                                        posChar = rus.indexOf(temp.charAt(i)) - step;
+                                    }
+                                    result = result + String.copyValueOf(rusch, posChar, 1);
+                                } else {
+                                result = result + temp.charAt(i);
+                                }
+                            }
+
                         edittext_result.setText(result);
                         result = "";
                         toast = Toast.makeText(MainActivity.this, temp, toast.LENGTH_SHORT);
@@ -62,36 +74,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
-
-        /*  View.OnClickListener onClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.button:
-                        step = parseInt(edittext_step.getText().toString());
-                        temp = edittext_data.getText().toString();
-                        temp = temp.toLowerCase();
-                        for (i = 0; i <= temp.length() - 1; i++) {
-
-                            if (lat.indexOf(temp.charAt(i)) - step < 0) {
-                                posChar = 73 + lat.indexOf(temp.charAt(i)) - step;
-                            } else {
-                                if (lat.indexOf(temp.charAt(i)) == 72) {
-                                    posChar = 72;
-                                } else {
-                                    posChar = lat.indexOf(temp.charAt(i)) - step;
-                                }
-                            }
-                            result = result + String.copyValueOf(latc, posChar, 1);
-                        }
-                        edittext_result.setText(result);
-                        result = "";
-                        toast = Toast.makeText(MainActivity.this, temp, toast.LENGTH_SHORT);
-                        toast.show();
-                        break;
-                }
-            }
-        };                  */
 
         button.setOnClickListener(onClickListener);
     }
