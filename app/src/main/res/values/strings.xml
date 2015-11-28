@@ -4,7 +4,9 @@
     <string name="label1">Данные</string>
     <string name="label2">Сдвиг</string>
     <string name="label3">Результат</string>
-    <string name="button1">Шифровать/Расшифровать</string>
+    <string name="button1">Шифровать</string>
+    <string name="button2">Расшифровать</string>
     <string name="default_step">3</string>
+    <string name="image">back</string>
 
 </resources>
